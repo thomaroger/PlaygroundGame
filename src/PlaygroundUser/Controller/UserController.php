@@ -822,8 +822,10 @@ class UserController extends ZfcUserController
 
             $userNotFound = true;
             $createUserProvider = false;
-
+            
+            $zfcUserMapper = $this->getServiceLocator()->get('zfcuser_user_mapper');
             $userProviderMapper = $this->getServiceLocator()->get('playgrounduser_userprovider_mapper');
+
 
             // Check if the user Facebook account is registered into Playground
 
@@ -841,9 +843,6 @@ class UserController extends ZfcUserController
             // Check if the user email form Facebook account exist into Playground users
 
             if ($userNotFound && isset($userProfile['email'])){
-
-                $zfcUserMapper = $this->getServiceLocator()->get('zfcuser_user_mapper');
-
                 $localUser = $zfcUserMapper->findByEmail($userProfile['email']);
 
                 if ($localUser) {
